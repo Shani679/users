@@ -1,24 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import Overview from './Components/Overview/Overview';
+import Form from './Components/AddOrEditUser/Form';
+import { makeStyles } from '@material-ui/core';
 
-function App() {
+const useStyles = makeStyles({
+  container: {
+      backgroundColor: "rgba(229, 222, 229, 0.5)",
+      padding: "30px",
+      minHeight: "100vh",
+      boxSizing: "border-box",
+      ['@media (max-width:768px)']:{
+          padding: "20px"
+      },
+  },
+});
+
+const App = (props) => {
+  const { container } = useStyles(props);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={container}>
+      <Switch>
+        <Route path="/user/:id" component={() => <Form/>}/>
+        <Route path="/user" component={() => <Form/>}/>
+        <Route path="/" exact component={() => <Overview/>}/>
+      </Switch>
     </div>
   );
 }
