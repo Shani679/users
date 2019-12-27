@@ -60,15 +60,12 @@ class User  extends Component{
         this.setState({openModal: flag})
     }
 
-    onClickEdit(e){
-        this.props.history.push(`user/${this.props.user.id}`);
-    }
 
     render(){
-        const {fullName, picture, email} = this.props.user;
+        const {fullName, picture, email, id} = this.props.user;
         return (
             <Container>
-                <EditTwoToneIcon color="secondary" onClick={e => this.onClickEdit(e)}/>
+                <EditTwoToneIcon color="secondary" onClick={() => this.props.history.push(`user/${id}`)}/>
                 <FullscreenSharpIcon color="secondary" onClick={e => this.toggleModal(e, true)}/>
                 <img src={picture}/>
                 <div>
