@@ -13,14 +13,16 @@ const Container = styled(Box)({
     justifyContent: "space-between",
     alignItems: "center",
     width: "250px",
-    border: "1px solid",
     borderRadius: "3px",
     position: "relative",
     maxWidth: "100%",
-    boxShadow: "rgba(0, 0, 0, 0.75) 15px 13px 19px -19px",
+    boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 7.68px 0.32px, rgba(0, 0, 0, 0.4) 0px 12px 26px 0px",
     ['@media (max-width:768px)']:{
         width: "100%",
         margin: "10px 0"
+    },
+    '&:hover > svg':{
+        display: "initial"
     },
     '& > img': {
         width: "100%"
@@ -40,6 +42,7 @@ const Container = styled(Box)({
         position: "absolute",
         right: "0",
         cursor: "pointer",
+        display: "none",
         '&:nth-child(2)': {
             top: "25px"
         }

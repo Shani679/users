@@ -21,6 +21,8 @@ const Container = styled(Box)({
         flexDirection: "column",
         boxSizing: "border-box",
         maxWidth: "100%",
+        background: "#fff",
+        borderRadius: "8px",
         '& > div': {
             marginBottom: "15px",
             position: "relative",
@@ -48,7 +50,7 @@ const Container = styled(Box)({
     
 });
 
-const defaultImage = "https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg";
+const defaultImage = "https://www.spectrummetals.com.au/wp-content/plugins/all-in-one-seo-pack-pro/images/default-user-image.png";
 
 class UserForm extends Component{
 
@@ -82,7 +84,7 @@ class UserForm extends Component{
     isValidForm(){
         let isValid = true;
         const updatedState = {};
-        const mandatoryFields = ["fullName", "address", "email", "birthday"];
+        const mandatoryFields = ["fullName", "address", "email", "birthday", "picture"];
         mandatoryFields.forEach(field => {
             if(this.state[field] === ""){
                 updatedState[`${field}_err`] = "Required field";
@@ -128,7 +130,7 @@ class UserForm extends Component{
     render(){
         return (
           <Container>
-            <Button variant="outlined" onClick={() => this.props.history.push("/")}>Back</Button>
+            <Button variant="contained" color="secondary" onClick={() => this.props.history.push("/")}>Back</Button>
             <form>
                 <div>
                     <img src={this.state.picture}/>
@@ -137,7 +139,7 @@ class UserForm extends Component{
                         ? <CancelPresentationTwoToneIcon color="secondary" onClick={() => this.togglePictureField(false)}/>
                         : <EditTwoToneIcon color="secondary" onClick={() => this.togglePictureField(true)}/>
                     }
-                    {this.state.picture_err && <p>{this.state.picture_err}</p>}
+                    {this.state.picture_err && <p>Missing profile picture</p>}
                 </div>
                 {
                     this.state.showPictureField && 

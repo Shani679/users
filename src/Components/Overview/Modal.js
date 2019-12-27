@@ -13,16 +13,23 @@ const Container = styled(Box)({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    border: "1px solid",
-    borderRadius: "3px",
+    borderRadius: "8px",
     position: "relative",
+    boxShadow: "rgba(0, 0, 0, 0.75) 15px 13px 19px -19px",
     '& > img': {
-        width: "100%"
+        width: "100%",
+        borderRadius: "8px 8px 0 0"
     },
     '& > div':{
         padding: "15px",
         width: "100%",
         boxSizing: "border-box",
+        fontFamily: 'Open Sans',
+        '& span': {
+            color: "#f50057",
+            fontWeight: "bold",
+            textDecoration: "underline"
+        }
     },
     '& > button':{
         background: "#fff",
@@ -59,21 +66,15 @@ export const UserModal = ({user, onClose}) => {
     const classes = useStyles();
     const {fullName, picture, email, birthday, address} = user;
     return (
-        <Modal 
-            open 
-            disablePortal
-            disableEnforceFocus
-            disableAutoFocus
-            className={classes.modal}
-            >
+        <Modal open disableEnforceFocus disableAutoFocus className={classes.modal}>
             <Container>
                 <button onClick={e => onClose(e)}><span>+</span></button>
                 <img src={picture}/>
                 <div>
-                    <p>{fullName}</p>
-                    <p>{moment(birthday).format('LL')}</p>
-                    <p>{email}</p>
-                    <p>{address}</p>
+                    <p><span>Full name:</span> {fullName}</p>
+                    <p><span>Birthday:</span> {moment(birthday).format('LL')}</p>
+                    <p><span>Email:</span> {email}</p>
+                    <p><span>Address:</span> {address}</p>
                 </div>
             </Container>
         </Modal>

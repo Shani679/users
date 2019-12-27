@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   container: {
-      backgroundColor: "rgba(229, 222, 229, 0.5)",
+      backgroundColor: "rgb(90, 87, 87)",
       padding: "30px",
       minHeight: "100vh",
       boxSizing: "border-box",

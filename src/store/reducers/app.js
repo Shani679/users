@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+const uuidv1 = require('uuid/v1');
 
 const initialState = {
     users: [],
@@ -30,7 +31,8 @@ const setUser = (state, {user}) => {
         users.splice(userIndex, 1, user);
         return {...state, users};
     }
-    users.unshift(user);
+    const userAge = new Date().getFullYear() - Number(user.birthday.split("-")[0]);
+    users.unshift({...user, id: uuidv1(), age: userAge});
     return {...state, users};
 }
 
