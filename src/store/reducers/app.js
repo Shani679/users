@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+import {calculateMatch} from '../../shared/utility';
 const uuidv1 = require('uuid/v1');
 
 const initialState = {
@@ -21,26 +22,41 @@ const setRandomUser = (state, {users}) => {
         age: user.dob.age,
         address: `${user.location.street.number} ${user.location.street.name} st. ${user.location.city}, ${user.location.state} ${user.location.country}`
     }))
-    return {...state, users: [...users, ...state.users], loading: false};
+    const mappedUsers = calcUsersScroe([...users, ...state.users]);
+    return {...state, users: mappedUsers, loading: false};
+}
+
+const calcUsersScroe = (users) => {
+    if(users.length < 2) return users;
+    return users.map(user => {
+        let highestScore = 0;
+        users.forEach(userToCompareWith => {
+            if(user.id !== userToCompareWith.id){
+                const finalScore = calculateMatch(user, userToCompareWith);
+                highestScore = finalScore > highestScore ? finalScore : highestScore;
+            }
+        })
+        return {...user, userMatch: highestScore}
+    });
 }
 
 const setUser = (state, {user}) => {
     let users = [...state.users];
-    if(user.id){
-        const userIndex = users.findIndex(u => u.id === user.id);
-        users.splice(userIndex, 1, user);
-        return {...state, users};
-    }
     const userAge = new Date().getFullYear() - Number(user.birthday.split("-")[0]);
-    users.unshift({...user, id: uuidv1(), age: userAge});
-    return {...state, users};
+    user = {...user, age: userAge};
+    const userIndex = users.findIndex(u => u.id === user.id);
+    const isUserExist = userIndex > -1;
+    isUserExist ? users.splice(userIndex, 1, user) : users.unshift({...user, id: uuidv1()});
+    const mappedUsers = calcUsersScroe(users);
+    return {...state, users: mappedUsers};
 }
 
 const deleteUser = (state, {id}) => {
     let users = [...state.users];
     const userIndex = users.findIndex(u => u.id === id);
     users.splice(userIndex, 1);
-    return {...state, users};
+    const mappedUsers = calcUsersScroe(users);
+    return {...state, users: mappedUsers};
 }
 
 const setLoader = (state, {flag}) => {

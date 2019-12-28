@@ -62,7 +62,7 @@ class User  extends Component{
 
 
     render(){
-        const {fullName, picture, email, id} = this.props.user;
+        const {fullName, picture, email, id, userMatch} = this.props.user;
         return (
             <Container>
                 <EditTwoToneIcon color="secondary" onClick={() => this.props.history.push(`user/${id}`)}/>
@@ -71,6 +71,7 @@ class User  extends Component{
                 <div>
                     <p>{fullName}</p>
                     <p>{email}</p>
+                    {userMatch && <p>{`${userMatch === Infinity ? "100% Match" : userMatch}`}</p>}
                 </div>
                 {this.state.openModal && <UserModal user={this.props.user} onClose={e => this.toggleModal(e, false)}/>}
             </Container>
