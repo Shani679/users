@@ -23,8 +23,8 @@ export const calculateMatch = (per1, per2) => {
             if (secondLowerCaseName.includes(firstLowerCaseName[currIndex])) {
                 const charInstancesCount = bothNames.split(firstLowerCaseName[currIndex]).length - 1;
                 stringScore += charInstancesCount;
-                alreadyPassedChars.push(firstLowerCaseName[currIndex]);
             }
+            alreadyPassedChars.push(firstLowerCaseName[currIndex]);
         }
     }
 
